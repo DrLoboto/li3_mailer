@@ -79,8 +79,10 @@ class Simple extends \li3_mailer\net\mail\Transport {
 				$property = $header;
 				$header = ucfirst($property);
 			}
-			if ($message->$property && ($value = $this->_address($message->$property))) {
-				$headers[$header] = $value;
+			if ($property != 'to' && $message->$property) {
+				if ($value = $this->_address($message->$property)) {
+					$headers[$header] = $value;
+				}
 			}
 		}
 		$headers['Date'] = date('r', $message->date);
