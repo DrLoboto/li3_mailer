@@ -79,7 +79,9 @@ class Simple extends \li3_mailer\net\mail\Transport {
 				$property = $header;
 				$header = ucfirst($property);
 			}
-			$headers[$header] = $this->_address($message->$property);
+			if ($message->$property && ($value = $this->_address($message->$property))) {
+				$headers[$header] = $value;
+			}
 		}
 		$headers['Date'] = date('r', $message->date);
 		$headers['MIME-Version'] = "1.0";
